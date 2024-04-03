@@ -1,15 +1,26 @@
 package cz.krystofcejchan;
 
-public record Coordinate(int x, int y) implements ContainerComparable {
+/**
+ * Třída ukládající umístění.
+ * Je použita pro ukládání speciálních symbolů a umístění {@link Container}
+ */
+non-sealed class Coordinate extends LocationComparable {
+    private final int x;
+    private final int y;
+
+    Coordinate(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
     @Override
-    public int compareTo(ContainerComparable o) {
-        int yComparison = this.y() - o.y();
-        if (yComparison != 0) {
-            return yComparison;
-        } else {
-            return this.x() - o.x();
-        }
+    public int x() {
+        return x;
+    }
+
+    @Override
+    public int y() {
+        return y;
     }
 
     @Override
@@ -19,5 +30,4 @@ public record Coordinate(int x, int y) implements ContainerComparable {
                 ", y=" + y +
                 '}';
     }
-
 }
