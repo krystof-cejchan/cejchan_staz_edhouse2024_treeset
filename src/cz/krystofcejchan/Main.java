@@ -24,19 +24,18 @@ public class Main {
      * @param args relativní nebo absolutní cesta k textovému souboru
      */
     public static void main(String... args) {
-        // TreeSet ukládající instance tříd, které implementují rozhraní LocationComparable obsahující logiku za uspořádávání objektů podle jejich koordinace
+        // TreeSet ukládající instance tříd, které implementují rozhraní LocationComparable obsahující logiku za uspořádávání objektů podle jejich pozice
         TreeSet<? super LocationComparable> containers = new TreeSet<>();
 
-        // LinkedList ukládající speciální symboly, pro určení, které kontejnery jsou aktivní
-        LinkedList<Coordinate> specialSymbols = new LinkedList<>();
+        // LinkedList ukládající speciální symboly, pro určení, které containers jsou aktivní
+        LinkedList<Location> specialSymbols = new LinkedList<>();
 
         // načtení souboru pomocí BufferedReader a FileReader
         try (var br = new BufferedReader(new FileReader(args[0]))) {
-            // řádek
-            String line;
+            String line;//řádek
 
             // index současného řádku
-            int lineCounter = 0;
+            int lineIndex = 0;
 
             // StringBuilder využíván pro ukládání čísel - čísla jsou v txt souboru znaky
             StringBuilder numericValues = new StringBuilder();
@@ -53,26 +52,26 @@ public class Main {
                         numericValues.setLength(0);
 
                         // seznam ukládající koordinace kontejnerů
-                        ArrayList<Coordinate> currentNumberCoordinates = new ArrayList<>();
+                        ArrayList<Location> currentContainerLocation = new ArrayList<>();
 
                         // cyklus přidává číslice do StringBuilder a zároveň ukládá současné koordinace
                         // dokud jsme nedošli na konec řádku či pokud jsme na konci kontejneru
                         do {
                             numericValues.append(currentChar);
-                            currentNumberCoordinates.add(new Coordinate(i, lineCounter));
+                            currentContainerLocation.add(new Location(i, lineIndex));
                         }
                         while (++i < line.length() && isDigit(currentChar = line.charAt(i)));
 
                         // přidá kontejner do TreeSetu
                         containers.add(new Container(Integer.parseInt(numericValues.toString()),
-                                currentNumberCoordinates));
+                                currentContainerLocation));
                     }
                     // pokud současný symbol není tečka nebo číslice, tzn. je to speciální symbol; přidá se do LinkedListu
                     if (Character.toString(currentChar).matches("[^.0-9]"))
-                        specialSymbols.add(new Coordinate(i, lineCounter));
+                        specialSymbols.add(new Location(i, lineIndex));
                 }
                 // poté, co se projde řádek, se zvýší index
-                lineCounter++;
+                lineIndex++;
             }
             // zavolání třídy Algorithm, která vypočítá součet všech aktivních kontejnerů
             int result = new Algorithm(containers, specialSymbols).getContainerValueSum();

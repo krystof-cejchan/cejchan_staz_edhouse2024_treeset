@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"cz.krystofcejchan","l":"Algorithm"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"cz.krystofcejchan","l":"Container"},{"p":"cz.krystofcejchan","l":"Location"},{"p":"cz.krystofcejchan","l":"LocationComparable"},{"p":"cz.krystofcejchan","l":"Main"}];updateSearchResults();

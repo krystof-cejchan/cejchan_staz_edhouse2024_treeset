@@ -7,27 +7,27 @@ import java.util.ArrayList;
  */
 non-sealed class Container extends LocationComparable {
     private final int value;
-    private final ArrayList<Coordinate> coordinates;
+    private final ArrayList<Location> location;
 
     /**
      * Konstruktor
      *
      * @param value       int hodnota kontejneru
-     * @param coordinates {@link Coordinate}, kde se nachází kontejner, tj. x y souřadnice
+     * @param location {@link Location}, kde se nachází kontejner, tj. x y souřadnice
      */
-    Container(int value, ArrayList<Coordinate> coordinates) {
+    Container(int value, ArrayList<Location> location) {
         this.value = value;
-        this.coordinates = coordinates;
+        this.location = location;
     }
 
     /**
      * Volání binárního vyhledávání
      *
-     * @param coordinate {@link Coordinate} target
-     * @return true - pokud tento kontejner se "rozpíná" přes {@link Coordinate} z parametru
+     * @param location {@link Location} target
+     * @return true - pokud tento kontejner se "rozpíná" přes {@link Location} z parametru
      */
-    boolean containsWithBinarySearch(Coordinate coordinate) {
-        return binarySearch(coordinate, 0, coordinates.size() - 1, coordinates);
+    boolean containsWithBinarySearch(Location location) {
+        return binarySearch(location, 0, this.location.size() - 1, this.location);
     }
 
     public int getValue() {
@@ -36,12 +36,12 @@ non-sealed class Container extends LocationComparable {
 
     @Override
     public int x() {
-        return coordinates.get(0).x();
+        return location.get(0).x();
     }
 
     @Override
     public int y() {
-        return coordinates.get(0).y();
+        return location.get(0).y();
     }
 
     /**
@@ -51,7 +51,7 @@ non-sealed class Container extends LocationComparable {
      * @param left     index prvního elementu
      * @param right    index posledního elementu
      * @param elements vstupní seznam
-     * @param <T>      generické T musí implementovat {@link LocationComparable}, tj. musí být {@link Container} či {@link Coordinate}
+     * @param <T>      generické T musí implementovat {@link LocationComparable}, tj. musí být {@link Container} či {@link Location}
      * @return true, pokud seznam obsahuje cílový element; jinak false
      */
     private <T extends LocationComparable> boolean binarySearch(T target, int left, int right, ArrayList<T> elements) {
@@ -72,7 +72,7 @@ non-sealed class Container extends LocationComparable {
     public String toString() {
         return "Container[" +
                 "value=" + value + ", " +
-                "coordinates=" + coordinates + ']';
+                "location=" + location + ']';
     }
 
 }

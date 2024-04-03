@@ -9,7 +9,7 @@ import java.util.stream.Stream;
  */
 public class Algorithm {
     final private TreeSet<? super LocationComparable> containers;
-    final private LinkedList<Coordinate> specialSymbols;
+    final private LinkedList<Location> specialSymbols;
     private int containerValueSum;
 
     /**
@@ -18,7 +18,7 @@ public class Algorithm {
      * @param containers     TreeSet kontejnerů
      * @param specialSymbols LinkedList umístění speciálních symbolů
      */
-    public Algorithm(TreeSet<? super LocationComparable> containers, LinkedList<Coordinate> specialSymbols) {
+    public Algorithm(TreeSet<? super LocationComparable> containers, LinkedList<Location> specialSymbols) {
         this.containers = containers;
         this.specialSymbols = specialSymbols;
         sumUpContainers();
@@ -35,16 +35,16 @@ public class Algorithm {
     /**
      * Tato metoda zjistí, zda se v okolí speciálního symbolu nachází kontejner; pokud ano, tak jeho hodnotu přičte do containerValueSum
      *
-     * @param specialSymbol {@link Coordinate} umístění speciálního symbolu
+     * @param specialSymbolLocation {@link Location} umístění speciálního symbolu
      */
-    private void handleOffsetElements(Coordinate specialSymbol) {
-        for (Coordinate coordinate : generateOffset(specialSymbol)) {
+    private void handleOffsetElements(Location specialSymbolLocation) {
+        for (Location location : generateOffset(specialSymbolLocation)) {
             if (containers.isEmpty()) return;
-            //v TreeSetu se najde Container pomocí coordinate – containers ukládá <? super LocationComparable>, proto musí být přetypován
-            var containerFromTreeSet = (Container) containers.floor(coordinate);
+            //v TreeSetu se najde Container pomocí location – containers ukládá <? super LocationComparable>, proto musí být přetypován
+            var containerFromTreeSet = (Container) containers.floor(location);
             //pokud se v TreeSetu našel kontejner a tento kontejner se nachází na lokacích, které obsahují corrdinate,
             //tak se přičte hodnota kontejneru a odstraní se z TreeSetu, neboť kontejner může sousedit s více speciálními znaky
-            if (containerFromTreeSet != null && containerFromTreeSet.containsWithBinarySearch(coordinate)) {
+            if (containerFromTreeSet != null && containerFromTreeSet.containsWithBinarySearch(location)) {
                 containerValueSum += containerFromTreeSet.getValue();
                 containers.remove(containerFromTreeSet);
             }
@@ -52,15 +52,15 @@ public class Algorithm {
     }
 
     /**
-     * funkce generuje {@link Coordinate}[], které sousedí s {@link Coordinate} zadaným v parametru funkce
+     * funkce generuje {@link Location}[], které sousedí s {@link Location} zadaným v parametru funkce
      *
-     * @param coordinate {@link Coordinate} umístění speciálního symbolu
-     * @return Coordinate[] sousedící s parametrem funkce
+     * @param location {@link Location} umístění speciálního symbolu
+     * @return Location[] sousedící s parametrem funkce
      */
-    private Coordinate[] generateOffset(Coordinate coordinate) {
+    private Location[] generateOffset(Location location) {
         return Stream.of(new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, 1}, {1, 1}, {-1, -1}, {1, -1}})
-                .map(offset -> new Coordinate(coordinate.x() + offset[0], coordinate.y() + offset[1]))
-                .toArray(Coordinate[]::new);
+                .map(offset -> new Location(location.x() + offset[0], location.y() + offset[1]))
+                .toArray(Location[]::new);
     }
 
     /**

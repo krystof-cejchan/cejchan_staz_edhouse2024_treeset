@@ -4,11 +4,11 @@ package cz.krystofcejchan;
  * Třída ukládající umístění.
  * Je použita pro ukládání speciálních symbolů a umístění {@link Container}
  */
-non-sealed class Coordinate extends LocationComparable {
+non-sealed class Location extends LocationComparable {
     private final int x;
     private final int y;
 
-    Coordinate(int x, int y) {
+    Location(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -25,7 +25,7 @@ non-sealed class Coordinate extends LocationComparable {
 
     @Override
     public String toString() {
-        return "Coordinate{" +
+        return "Location{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';
