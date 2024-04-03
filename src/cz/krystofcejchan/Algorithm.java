@@ -1,6 +1,6 @@
 package cz.krystofcejchan;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
@@ -9,7 +9,7 @@ import java.util.stream.Stream;
  */
 public class Algorithm {
     final private TreeSet<? super LocationComparable> containers;
-    final private LinkedList<Location> specialSymbols;
+    final private ArrayDeque<Location> specialSymbols;
     private int containerValueSum;
 
     /**
@@ -18,7 +18,7 @@ public class Algorithm {
      * @param containers     TreeSet kontejnerů
      * @param specialSymbols LinkedList umístění speciálních symbolů
      */
-    public Algorithm(TreeSet<? super LocationComparable> containers, LinkedList<Location> specialSymbols) {
+    public Algorithm(TreeSet<? super LocationComparable> containers, ArrayDeque<Location> specialSymbols) {
         this.containers = containers;
         this.specialSymbols = specialSymbols;
         sumUpContainers();

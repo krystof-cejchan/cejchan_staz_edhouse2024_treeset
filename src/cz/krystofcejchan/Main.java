@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.TreeSet;
 
 import static java.lang.Character.isDigit;
@@ -28,11 +28,12 @@ public class Main {
             System.out.println("Nebyla zadána cesta k souboru.");
             return;
         }
+        long l = System.currentTimeMillis();
         // TreeSet ukládající instance tříd, které implementují rozhraní LocationComparable obsahující logiku za uspořádávání objektů podle jejich pozice
         TreeSet<? super LocationComparable> containers = new TreeSet<>();
 
-        // LinkedList ukládající speciální symboly, pro určení, které containers jsou aktivní
-        LinkedList<Location> specialSymbols = new LinkedList<>();
+        // ArrayDeque ukládající speciální symboly, pro určení, které containers jsou aktivní
+        ArrayDeque<Location> specialSymbols = new ArrayDeque<>();
 
         // načtení souboru pomocí BufferedReader a FileReader
         try (var br = new BufferedReader(new FileReader(args[0]))) {
@@ -80,6 +81,7 @@ public class Main {
             // zavolání třídy Algorithm, která vypočítá součet všech aktivních kontejnerů
             int result = new Algorithm(containers, specialSymbols).getContainerValueSum();
             System.out.printf("Eda má ve skladu %d aktivních kontejnerů.\n", result);
+            System.out.println(System.currentTimeMillis() - l);
         } catch (FileNotFoundException e) {
             // soubor nebyl nalezen
             e.printStackTrace();
