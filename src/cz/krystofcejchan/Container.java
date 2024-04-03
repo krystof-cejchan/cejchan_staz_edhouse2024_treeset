@@ -15,7 +15,7 @@ public record Container(int value, ArrayList<Coordinate> coordinates) implements
         return coordinates.get(0).y();
     }
 
-    public boolean contains(Coordinate coordinate) {
+    public boolean containsWithBinarySearch(Coordinate coordinate) {
         return binarySearch(coordinate, 0, coordinates.size() - 1, coordinates);
     }
 

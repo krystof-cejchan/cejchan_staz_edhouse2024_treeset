@@ -22,7 +22,7 @@ public class Algorithm {
     private void handleOffsetElements(Coordinate specialSymbol) {
         for (Coordinate coordinate : generateOffset(specialSymbol)) {
             var containerFromTreeSet = (Container) containers.floor(coordinate);
-            if (containerFromTreeSet != null && containerFromTreeSet.contains(coordinate)) {
+            if (containerFromTreeSet != null && containerFromTreeSet.containsWithBinarySearch(coordinate)) {
                 containerValueSum += containerFromTreeSet.value();
                 containers.remove(containerFromTreeSet);
             }
