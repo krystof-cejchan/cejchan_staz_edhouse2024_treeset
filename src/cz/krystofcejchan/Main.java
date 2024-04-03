@@ -24,6 +24,10 @@ public class Main {
      * @param args relativní nebo absolutní cesta k textovému souboru
      */
     public static void main(String... args) {
+        if (args.length < 1) {
+            System.out.println("Nebyla zadána cesta k souboru.");
+            return;
+        }
         // TreeSet ukládající instance tříd, které implementují rozhraní LocationComparable obsahující logiku za uspořádávání objektů podle jejich pozice
         TreeSet<? super LocationComparable> containers = new TreeSet<>();
 
