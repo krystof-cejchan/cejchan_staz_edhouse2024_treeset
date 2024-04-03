@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="cejchan_staz_edhouse2024_treeset:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/cejchan_staz_edhouse2024_treeset_jar</output-path>
+    <root id="archive" name="cejchan_staz_edhouse2024_treeset.jar">
+      <element id="module-output" name="cejchan_staz_edhouse2024_treeset" />
+    </root>
+  </artifact>
+</component>
