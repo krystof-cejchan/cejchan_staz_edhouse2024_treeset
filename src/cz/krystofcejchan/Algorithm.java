@@ -13,10 +13,10 @@ public class Algorithm {
     private int containerValueSum;
 
     /**
-     * Kontruktor
+     * Parametrický kontruktor {@link Algorithm}
      *
      * @param containers     TreeSet kontejnerů
-     * @param specialSymbols LinkedList umístění speciálních symbolů
+     * @param specialSymbols ArrayDeque umístění speciálních symbolů
      */
     public Algorithm(TreeSet<? super LocationComparable> containers, ArrayDeque<Location> specialSymbols) {
         this.containers = containers;
@@ -40,10 +40,10 @@ public class Algorithm {
     private void handleOffsetElements(Location specialSymbolLocation) {
         for (Location location : generateOffset(specialSymbolLocation)) {
             if (containers.isEmpty()) return;
-            //v TreeSetu se najde Container pomocí location – containers ukládá <? super LocationComparable>, proto musí být přetypován
+            // v TreeSetu se najde Container pomocí location – containers ukládá <? super LocationComparable>, proto musí být přetypován
             var containerFromTreeSet = (Container) containers.floor(location);
-            //pokud se v TreeSetu našel kontejner a tento kontejner se nachází na lokacích, které obsahují corrdinate,
-            //tak se přičte hodnota kontejneru a odstraní se z TreeSetu, neboť kontejner může sousedit s více speciálními znaky
+            // pokud se v TreeSetu našel kontejner a tento kontejner se rozpíná na lokacích, mezi nimi je i location z cyklu,
+            // tak se přičte hodnota kontejneru a odstraní se z TreeSetu, neboť kontejner může sousedit s více speciálními znaky
             if (containerFromTreeSet != null && containerFromTreeSet.containsWithBinarySearch(location)) {
                 containerValueSum += containerFromTreeSet.getValue();
                 containers.remove(containerFromTreeSet);

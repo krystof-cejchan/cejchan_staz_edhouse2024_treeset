@@ -28,8 +28,7 @@ public class Main {
             System.out.println("Nebyla zadána cesta k souboru.");
             return;
         }
-        long l = System.currentTimeMillis();
-        // TreeSet ukládající instance tříd, které implementují rozhraní LocationComparable obsahující logiku za uspořádávání objektů podle jejich pozice
+        // TreeSet ukládající instance tříd, které implementují rozhraní LocationComparable obsahující logiku za uspořádávání objektů podle jejich x,y souřadnic
         TreeSet<? super LocationComparable> containers = new TreeSet<>();
 
         // ArrayDeque ukládající speciální symboly, pro určení, které containers jsou aktivní
@@ -37,12 +36,11 @@ public class Main {
 
         // načtení souboru pomocí BufferedReader a FileReader
         try (var br = new BufferedReader(new FileReader(args[0]))) {
-            String line;//řádek
+            String line; // řádek
 
-            // index současného řádku
-            int lineIndex = 0;
+            int lineIndex = 0; // index současného řádku
 
-            // StringBuilder využíván pro ukládání čísel - čísla jsou v txt souboru znaky
+            // StringBuilder využíván pro ukládání čísel(hodnot kontejnerů) - na závěr se hodnota kontejnru převede na int
             StringBuilder numericValues = new StringBuilder();
 
             // cyklus, který načítá obsahy řádků
@@ -53,7 +51,7 @@ public class Main {
 
                     // pokud je současný symbol číslo, tj. je to kontejner
                     if (isDigit(currentChar)) {
-                        //vymaže obsah StringBuilder
+                        // vymaže obsah StringBuilder
                         numericValues.setLength(0);
 
                         // seznam ukládající koordinace kontejnerů
@@ -71,7 +69,7 @@ public class Main {
                         containers.add(new Container(Integer.parseInt(numericValues.toString()),
                                 currentContainerLocation));
                     }
-                    // pokud současný symbol není tečka nebo číslice, tzn. je to speciální symbol; přidá se do LinkedListu
+                    // pokud současný symbol není tečka nebo číslice, tzn. je to speciální symbol; přidá se do ArrayDeque
                     if (Character.toString(currentChar).matches("[^.0-9]"))
                         specialSymbols.add(new Location(i, lineIndex));
                 }
@@ -81,7 +79,6 @@ public class Main {
             // zavolání třídy Algorithm, která vypočítá součet všech aktivních kontejnerů
             int result = new Algorithm(containers, specialSymbols).getContainerValueSum();
             System.out.printf("Eda má ve skladu %d aktivních kontejnerů.\n", result);
-            System.out.println(System.currentTimeMillis() - l);
         } catch (FileNotFoundException e) {
             // soubor nebyl nalezen
             e.printStackTrace();

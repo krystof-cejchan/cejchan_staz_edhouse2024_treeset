@@ -13,8 +13,18 @@ package cz.krystofcejchan;
  * ale všechny implementující třídy by ji musely mít nadefinovanou separátně.
  */
 sealed abstract class LocationComparable implements Comparable<LocationComparable> permits Container, Location {
+    /**
+     * Třídy, které dědí z této třídy, musí mít souřadnici x, aby mohly být podle ní seřazeny v compareTo metodě
+     *
+     * @return souřadnice x
+     */
     abstract int x();
 
+    /**
+     * Třídy, které dědí z této třídy, musí mít souřadnici y, aby mohly být podle ní seřazeny v compareTo metodě
+     *
+     * @return souřadnice y
+     */
     abstract int y();
 
     /**

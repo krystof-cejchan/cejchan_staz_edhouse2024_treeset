@@ -3,7 +3,7 @@ package cz.krystofcejchan;
 import java.util.ArrayList;
 
 /**
- * Třída kontejneru s vlastnostmi ukládající celkovou hodnotu kontejneru a jeho lokaci
+ * Třída kontejneru s vlastnostmi ukládající celkovou hodnotu kontejneru a jeho lokace
  */
 non-sealed class Container extends LocationComparable {
     private final int value;
@@ -12,7 +12,7 @@ non-sealed class Container extends LocationComparable {
     /**
      * Konstruktor
      *
-     * @param value       int hodnota kontejneru
+     * @param value    int hodnota kontejneru
      * @param location {@link Location}, kde se nachází kontejner, tj. x y souřadnice
      */
     Container(int value, ArrayList<Location> location) {
@@ -30,6 +30,11 @@ non-sealed class Container extends LocationComparable {
         return binarySearch(location, 0, this.location.size() - 1, this.location);
     }
 
+    /**
+     * Getter funkce
+     *
+     * @return hodnota kontejneru
+     */
     public int getValue() {
         return value;
     }
